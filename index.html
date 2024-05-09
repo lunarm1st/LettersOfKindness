@@ -14,7 +14,15 @@
     </div>
 
     <div>
-        <button onclick="buyLettersPerClick()" id="perClickUpgrade">Upgrade Pen (Level 1) Cost: 10 Letters</button>
+        <p>Pen Quality: <span id="penQuality">1</span></p>
+        <button onclick="buyPenQuality()">Upgrade Pen</button>
+        <P>Upgrade price:<span id="penQualityCost">10</span></P>
+    </div>
+
+    <div>
+        <p>Paper Quality: <span id="paperQuality">0</span></p>
+        <button onclick="buyPaperQuality()">Upgrade Paper</button>
+        <P>Upgrade price:<span id="paperQualityCost">50</span></P>
     </div>
     
 </body>

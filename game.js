@@ -1,35 +1,50 @@
-var gameData = {
-    letters: 0,
-    lettersPerClick: 1,
-    lettersPerClickCost: 10,
-    update: 0
+let letters = 0;
+var lettersPerClick = 0.1; //this increases letter amount created when clicked
+var penQualityCost = 10; //this is how much the upgrade costs
+var paperQuality = 0;
+var paperQualityCost = 50;
+
+function lettersRounded(x) {
+    return Number.parseFloat(x).toFixed(2);
+}
+
+function update() {
+    document.getElementById("lettersWritten").innerHTML = lettersRounded(letters)
+    document.getElementById("penQuality").innerHTML = lettersRounded(lettersPerClick)
+    document.getElementById("penQualityCost").innerHTML = lettersRounded(penQualityCost)
+    document.getElementById("paperQuality").innerHTML = lettersRounded(paperQuality)
+    document.getElementById("paperQualityCost").innerHTML = lettersRounded(paperQualityCost)
 }
 
 function writeLetter() {
-    gameData.letters += gameData.lettersPerClick
-
-    document.getElementById("lettersWritten").innerHTML = gameData.letters
+    letters += lettersPerClick
+    update()
 }
 
-function buyLettersPerClick() {
-    if (gameData.letters >= gameData.lettersPerClickCost) {
-        gameData.letters -= gameData.lettersPerClickCost
-        gameData.lettersPerClick += 1
-        gameData.lettersPerClickCost *= 2
-        document.getElementById("lettersWritten").innerHTML = gameData.letters + " letters written"
-        document.getElementById("perClickUpgrade").innerHTML = "Upgrade Pen (Currently Level " + gameData.lettersPerClick + ") Cost: " + gameData.lettersPerClickCost + " letters"
+function buyPenQuality() {
+    if (letters >= penQualityCost) {
+        letters -= penQualityCost
+        lettersPerClick += 0.1
+        penQualityCost *= 1.5
+        update()
     }
 }
 
-var mainGameLoop = window.setInterval(function() {
-    writeLetter()
-  }, 1000)
-
-  var saveGameLoop = window.setInterval(function() {
-    localStorage.setItem("lettersOfKindnessSave", JSON.stringify(gameData))
-  }, 15000)
-
-  var savegame = JSON.parse(localStorage.getItem("lettersOfKindnessSave"))
-if (savegame !== null) {
-  gameData = savegame
+function buyPaperQuality() {
+    if (letters >= paperQualityCost) {
+        letters -= paperQualityCost
+        paperQuality += 1
+        paperQualityCost *= 2
+        update()
+    } 
 }
+
+function runPaperQuality() {
+    letters += (paperQuality / 10)
+}
+
+setInterval(function() {
+    runPaperQuality()
+    update()
+    }, 1000)
+
