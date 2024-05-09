@@ -33,14 +33,14 @@ function buyPenQuality() {
 function buyPaperQuality() {
     if (letters >= paperQualityCost) {
         letters -= paperQualityCost
-        paperQuality += 1
+        paperQuality += 0.1
         paperQualityCost *= 2
         update()
     } 
 }
 
 function runPaperQuality() {
-    letters += (paperQuality / 10)
+    letters += (paperQuality)
 }
 
 setInterval(function() {
